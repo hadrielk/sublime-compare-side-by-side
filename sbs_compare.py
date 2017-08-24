@@ -412,6 +412,18 @@ class SbsCompareCommand( sublime_plugin.TextCommand ):
 				new_window.run_command( 'toggle_side_bar' )
 			if sbs_settings().get( 'toggle_menu', False ):
 				new_window.run_command( 'toggle_menu' )
+
+			if int( sublime.version() ) >= 3000:
+				if sbs_settings().get( 'hide_sidebar', False ):
+					new_window.set_sidebar_visible(False)
+				if sbs_settings().get( 'hide_menu', False ):
+					new_window.set_menu_visible(False)
+				if sbs_settings().get( 'hide_minimap', False ):
+					new_window.set_minimap_visible(False)
+				if sbs_settings().get( 'hide_status_bar', False ):
+					new_window.set_status_bar_visible(False)
+				if sbs_settings().get( 'hide_tabs', False ):
+					new_window.set_tabs_visible(False)
 			
 			# view 1
 			new_window.run_command( 'new_file' )
