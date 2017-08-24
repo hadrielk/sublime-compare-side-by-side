@@ -430,6 +430,8 @@ class SbsCompareCommand( sublime_plugin.TextCommand ):
 			new_window.run_command( 'insert_view', { 'string': view1_contents } )
 			new_window.active_view().set_syntax_file( view1_syntax )
 			
+			view_prefix = sbs_settings().get( 'display_prefix', '' )
+
 			view1_name = 'untitled'
 			if active_view.file_name():
 				view1_name = active_view.file_name()
@@ -437,7 +439,7 @@ class SbsCompareCommand( sublime_plugin.TextCommand ):
 				view1_name = active_view.name()
 			if name1_override != False:
 				view1_name = name1_override
-			new_window.active_view().set_name( os.path.basename( view1_name ) + ' (active)' )
+			new_window.active_view().set_name( view_prefix + os.path.basename( view1_name ) + ' (active)' )
 				
 			new_window.active_view().set_scratch( True )	
 			view1 = new_window.active_view()
@@ -446,7 +448,7 @@ class SbsCompareCommand( sublime_plugin.TextCommand ):
 			new_window.run_command( 'new_file' )
 			new_window.run_command( 'insert_view', { 'string': view2_contents } )
 			new_window.active_view().set_syntax_file( view2_syntax )
-			new_window.active_view().set_name( os.path.basename( name2_override ) + ' (other)' )
+			new_window.active_view().set_name( view_prefix + os.path.basename( name2_override ) + ' (other)' )
 			
 			# move view 2 to group 2
 			new_window.set_view_index( new_window.active_view(), 1, 0 )
